@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timer</title>
+    <link rel="stylesheet" href="CSS.css" type="text/css">
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <button id="Click">CLICK ME!</button>
+        <button id="selfDestructBtn">ACTIVATE COLOR</button>
+    </div>
+</div>
+
+<BUTTON id="cancel">CANCEL. REPEAT</BUTTON>
+
+<button id="repeatButton">Repeat!</button>
+
+<script>
+    const button = document.createElement("button");
+    button.textContent = "Remove";
+
+    const myButton = document.getElementById('Click');
+    const repeatButton = document.getElementById('repeatButton');
+
+    myButton.addEventListener('click', function(){
+        setTimeout(function () {
+            console.log("I was clicked 1 second ago");
+        }, 1000);
+    })
+
+    console.log("Happens right away");
+
+    const cancelButton = document.getElementById('cancel');
+    let interval;
+
+
+
+    cancelButton.addEventListener('click', function () {
+
+        if (interval) {
+            clearInterval(interval);
+            interval = null;
+        }
+    });
+
+    repeatButton.addEventListener(`click`, function () {
+        if (!interval) {
+            interval = setInterval(function () {
+                console.log("i happen every second")
+            }, 1000);
+        }
+    });
+
+    button.addEventListener("click", () => {
+        button.remove();
+    });
+
+    document.body.appendChild(button);
+
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do V2</title>
+  <link rel="stylesheet" href="CSS.css" type="text/css">
+</head>
+<body>
+ <div class="container">
+   <div class="content">
+       <div class="row">
+           <input type="text">
+           <button id="submit">ENTER</button>
+       </div>
+     <ul>
+       <li>
+        ::marker
+      </li>
+     </ul>
+
+       <table>
+           <thead>
+           <tr>
+           <th>
+               Description
+           </th>
+           <th>
+
+           </th>
+
+           </tr>
+
+
+            </thead>
+           <tbody id="complete">
+       </table>
+       <p>----------------------------</p>
+
+       <table>
+           <thead>
+           <tr>
+               <th>
+                   Description
+               </th>
+               <th>
+
+               </th>
+
+           </tr>
+
+
+           </thead>
+           <tbody id="incomplete">
+       </table>
+
+   </div>
+ </div>
+</body>
+
+<script>
+  const item = document.querySelector('input');
+  const submitButton = document.getElementById('submit');
+  const incomplete = document.getElementById('incomplete');
+  const complete = document.getElementById('complete');
+
+  submitButton.addEventListener('click', function(){
+      let toDoItem = item.value;
+      addItemToIncompleteTable(toDoItem)
+      item.value = '';
+  });
+
+  // function addItemToIncompleteTable(toDoItem){
+  //     let newRow = document.createElement('tr');
+  //     let descriptionTag = document.createElement('td');
+  //     descriptionTag.textContent = toDoItem;
+  //     newRow.appendChild(descriptionTag);
+  //     let actionTag = document.createElement('td');
+  //     let action = document.createElement('button');
+  //     action.textContent = 'Mark Complete';
+  //     action.addEventListener('click', () => {
+  //         newRow.remove();
+  //         addItemToCompleteTable(toDoItem)
+  //     })
+  //
+  //     actionTag.appendChild(action);
+  //     newRow.appendChild(actionTag);
+  //     incomplete.appendChild(newRow);
+  // }
+  //
+  // function addItemToCompleteTable(toDoItem){
+  //     let newRow = document.createElement('tr');
+  //     let descriptionTag = document.createElement('td');
+  //     descriptionTag.textContent = toDoItem;
+  //     newRow.appendChild(descriptionTag);
+  //     let actionTag = document.createElement('td');
+  //     let action = document.createElement('button');
+  //     action.textContent = "Mark Incomplete";
+  //     action.addEventListener('click', function(){
+  //         newRow.remove();
+  //         addItemToIncompleteTable(toDoItem);
+  //     })
+  //
+  //     actionTag.appendChild(action);
+  //     newRow.appendChild(actionTag);
+  //     complete.appendChild(newRow);
+  // }
+
+  function apollo(toDoItem, buttonText, targetTable, nextTableFunction) {
+
+      let newRow = document.createElement('tr');
+      let descriptionTag = document.createElement('td');
+      descriptionTag.textContent = toDoItem;
+      newRow.appendChild(descriptionTag);
+
+      let actionTag = document.createElement('td');
+      let action = document.createElement('button');
+      action.textContent = buttonText;
+      action.addEventListener('click', () => {
+          newRow.remove();
+          nextTableFunction(toDoItem)
+
+      });
+
+      actionTag.appendChild(action);
+      newRow.appendChild(actionTag);
+      targetTable.appendChild(newRow);
+
+  }
+  function addItemToIncompleteTable(toDoItem){
+      apollo(toDoItem, 'Mark Complete', incomplete, addItemToCompleteTable);
+  }
+
+  function addItemToCompleteTable(toDoItem){
+      apollo(toDoItem, 'Mark Incomplete', complete, addItemToIncompleteTable);
+  }
+</script>
+
+</html>
+
